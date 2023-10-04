@@ -13,9 +13,9 @@ public class StatementPrinterTests {
     void exampleStatement() {
 
         HashMap<String, Play> plays = new HashMap<>();
-        plays.put("hamlet",  new Play("Hamlet", "tragedy"));
-        plays.put("as-like",  new Play("As You Like It", "comedy"));
-        plays.put("othello",  new Play("Othello", "tragedy"));
+        plays.put("hamlet",  new Play("Hamlet", Play.PlayType.TRAGEDY));
+        plays.put("as-like",  new Play("As You Like It", Play.PlayType.COMEDY));
+        plays.put("othello",  new Play("Othello", Play.PlayType.TRAGEDY));
 
         Invoice invoice = new Invoice("BigCo", List.of(
                 new Performance("hamlet", 55),
@@ -32,8 +32,8 @@ public class StatementPrinterTests {
     void statementWithNewPlayTypes() {
 
         HashMap<String, Play> plays = new HashMap<>();
-        plays.put("henry-v",  new Play("Henry V", "history"));
-        plays.put("as-like",  new Play("As You Like It", "pastoral"));
+        plays.put("henry-v",  new Play("Henry V", Play.PlayType.HISTORY));
+        plays.put("as-like",  new Play("As You Like It", Play.PlayType.PASTORAL));
 
         Invoice invoice = new Invoice("BigCo", List.of(
                 new Performance("henry-v", 53),

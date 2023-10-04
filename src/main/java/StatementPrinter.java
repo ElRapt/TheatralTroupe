@@ -7,6 +7,7 @@ public class StatementPrinter {
     int totalAmount = 0;
     int volumeCredits = 0;
     StringBuffer result = new StringBuffer(String.format("Statement for %s\n", invoice.customer));
+    // StringBuffer prevents creation of a new string object each concatenation
 
     NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
 
@@ -15,13 +16,13 @@ public class StatementPrinter {
       int thisAmount = 0;
 
       switch (play.type) {
-        case "tragedy":
+        case TRAGEDY:
           thisAmount = 40000;
           if (perf.audience > 30) {
             thisAmount += 1000 * (perf.audience - 30);
           }
           break;
-        case "comedy":
+        case COMEDY:
           thisAmount = 30000;
           if (perf.audience > 20) {
             thisAmount += 10000 + 500 * (perf.audience - 20);
@@ -35,7 +36,7 @@ public class StatementPrinter {
       // add volume credits
       volumeCredits += Math.max(perf.audience - 30, 0);
       // add extra credit for every ten comedy attendees
-      if ("comedy".equals(play.type)) volumeCredits += Math.floor(perf.audience / 5);
+      if (Play.PlayType.COMEDY.equals(play.type)) volumeCredits += Math.floor(perf.audience / 5);
 
       // print line for this order
       result.append(String.format("  %s: %s (%s seats)\n", play.name, frmt.format(thisAmount / 100), perf.audience));
