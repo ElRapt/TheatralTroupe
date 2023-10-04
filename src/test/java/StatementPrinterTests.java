@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.approvaltests.Approvals.verify;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StatementPrinterTests {
 
@@ -56,4 +57,13 @@ public class StatementPrinterTests {
             statementPrinter.print(invoice, plays);
         });
     }
-}
+
+    @Test
+    void throwsInvalidPlayType() {
+      assertThrows(Play.InvalidPlayTypeException.class, () -> {
+        new Play("Hamlet", null);
+      });
+    }
+  }
+
+
