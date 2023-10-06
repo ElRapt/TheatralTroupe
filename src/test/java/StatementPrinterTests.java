@@ -29,8 +29,7 @@ public class StatementPrinterTests {
                 new Performance("as-like", 35),
                 new Performance("othello", 40)));
 
-        StatementPrinter statementPrinter = new StatementPrinter();
-        var result = statementPrinter.print(invoice, plays);
+        var result = invoice.printRevenue(plays);
 
         verify(result);
     }
