@@ -23,7 +23,7 @@ public class Invoice {
     Play play = plays.get(perf.playID);
     float priceToPay = 0;
 
-    switch (play.type) {
+    switch (play.type) { //TODO : Polymormphism en fiat
       case TRAGEDY:
         priceToPay = 400;
         if (perf.audience > 30) {
