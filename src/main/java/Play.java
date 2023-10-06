@@ -8,9 +8,7 @@ public class Play {
 
   public enum PlayType {
     TRAGEDY,
-    COMEDY,
-    HISTORY,
-    PASTORAL
+    COMEDY
   }
 
   public String name;
