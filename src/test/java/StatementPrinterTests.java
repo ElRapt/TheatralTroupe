@@ -53,9 +53,10 @@ public class StatementPrinterTests {
                 new Performance("othello", 40)));
 
         String filePath = "output.html";
-        invoice.toHTML(plays, filePath);
+        var result = invoice.toHTML(plays, filePath);
 
-        assertTrue(Files.exists(Path.of(filePath)));
+        verify(result);
+
     }
 
     @Test
