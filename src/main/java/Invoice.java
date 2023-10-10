@@ -1,9 +1,9 @@
 import java.text.NumberFormat;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 public class Invoice {
+
     public String customer;
     public List<Performance> performances;
 
@@ -12,12 +12,12 @@ public class Invoice {
         this.performances = performances;
     }
 
-    private void calculateRevenueAndCredits(HashMap<String, Play> plays, StringBuilder stringBuilder, NumberFormat formatter) {
+    private void calculateRevenueAndCredits(StringBuilder stringBuilder, NumberFormat formatter) {
         float totalAmount = 0;
         int volumeCredits = 0;
 
         for (Performance performance : performances) {
-            Play play = plays.get(performance.playID);
+            Play play = performance.play;
             float price = 0;
 
             switch (play.type) {
@@ -51,18 +51,18 @@ public class Invoice {
         stringBuilder.append(String.format("You earned %s credits\n", volumeCredits));
     }
 
-    public String printRevenue(HashMap<String, Play> plays) {
+    public String toText() {
         StringBuilder result = new StringBuilder(String.format("Statement for %s\n", customer));
         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
-        calculateRevenueAndCredits(plays, result, formatter);
+        calculateRevenueAndCredits(result, formatter);
         return result.toString();
     }
 
-    public String toHTML(HashMap<String, Play> plays, String filePath) {
+    public String toHTML() {
         StringBuilder htmlContent = new StringBuilder("<html><head><title>Statement</title></head><body>");
         htmlContent.append(String.format("<h1>Statement for %s</h1>", customer));
         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
-        calculateRevenueAndCredits(plays, htmlContent, formatter);
+        calculateRevenueAndCredits(htmlContent, formatter);
         htmlContent.append("</body></html>");
         return htmlContent.toString();
     }
