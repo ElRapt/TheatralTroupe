@@ -19,29 +19,10 @@ public class Invoice {
         for (Performance performance : performances) {
             Play play = performance.play;
             float price = 0;
+            price = play.calculatePrice(performance);
 
-            switch (play.type) {
-                case TRAGEDY:
-                    price = 400;
-                    if (performance.audience > 30) {
-                        price += 10 * (performance.audience - 30);
-                    }
-                    break;
-                case COMEDY:
-                    price = 300;
-                    if (performance.audience > 20) {
-                        price += 100 + 5 * (performance.audience - 20);
-                    }
-                    price += 3 * performance.audience;
-                    break;
-                default:
-                    throw new Error("Unknown type: " + play.type);
-            }
+            volumeCredits += play.calculateCredits(performance);
 
-            volumeCredits += Math.max(performance.audience - 30, 0);
-            if (Play.PlayType.COMEDY.equals(play.type)) {
-                volumeCredits += Math.floor(performance.audience / 5);
-            }
 
             stringBuilder.append(String.format("  %s: %s (%s seats)\n", play.name, formatter.format(price), performance.audience));
             totalAmount += price;

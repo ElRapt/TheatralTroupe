@@ -1,26 +1,17 @@
-public class Play {
-
-  public static class InvalidPlayTypeException extends Exception {
-    public InvalidPlayTypeException(String message) {
-      super(message);
-    }
-  }
+public abstract class Play {
 
 
-  // TODO : Polymorphism
-  public enum PlayType {
-    TRAGEDY,
-    COMEDY
-  }
 
   public String name;
-  public PlayType type;
 
-  public Play(String name, PlayType type) throws InvalidPlayTypeException {
-    if (type == null) {
-      throw new InvalidPlayTypeException("Invalid or null PlayType provided");
-    }
+  public Play(String name){
     this.name = name;
-    this.type = type;
   }
+
+  public abstract float calculatePrice(Performance performance); 
+
+  public int calculateCredits(Performance performance)
+  {
+    return (Math.max(performance.audience - 30, 0));
+  } 
 }

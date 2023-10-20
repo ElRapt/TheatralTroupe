@@ -8,10 +8,10 @@ import java.util.List;
 public class StatementPrinterTests {
 
   @Test
-  void exampleStatement() throws Play.InvalidPlayTypeException {
-      Play hamlet = new Play("Hamlet", Play.PlayType.TRAGEDY);
-      Play asYouLikeIt = new Play("As You Like It", Play.PlayType.COMEDY);
-      Play othello = new Play("Othello", Play.PlayType.TRAGEDY);
+  void exampleStatement(){
+      Play hamlet = new Tragedy("Hamlet");
+      Play asYouLikeIt = new Comedy("As You Like It");
+      Play othello = new Tragedy("Othello");
 
       Invoice invoice = new Invoice("BigCo", List.of(
               new Performance(hamlet, 55),
@@ -24,10 +24,10 @@ public class StatementPrinterTests {
   }
 
   @Test
-  void exampleHtmlStatement() throws Play.InvalidPlayTypeException {
-      Play hamlet = new Play("Hamlet", Play.PlayType.TRAGEDY);
-      Play asYouLikeIt = new Play("As You Like It", Play.PlayType.COMEDY);
-      Play othello = new Play("Othello", Play.PlayType.TRAGEDY);
+  void exampleHtmlStatement(){
+      Play hamlet = new Tragedy("Hamlet");
+      Play asYouLikeIt = new Comedy("As You Like It");
+      Play othello = new Tragedy("Othello");
 
       Invoice invoice = new Invoice("BigCo", List.of(
               new Performance(hamlet, 55),
@@ -39,13 +39,6 @@ public class StatementPrinterTests {
       verify(result);
   }
 
-
-    @Test
-    void throwsInvalidPlayType() {
-      assertThrows(Play.InvalidPlayTypeException.class, () -> {
-        new Play("Hamlet", null);
-      });
-    }
   }
 
 
