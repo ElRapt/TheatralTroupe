@@ -11,38 +11,41 @@ public class Invoice {
         this.performances = performances;
     }
 
-    private void calculateRevenueAndCredits(StringBuilder stringBuilder, NumberFormat formatter, boolean isHTML) {
+    private float calculateTotalAmount() {
         float totalAmount = 0;
-        int volumeCredits = 0;
-
         for (Performance performance : performances) {
-            Play play = performance.play;
-            float price = play.calculatePrice(performance);
-            volumeCredits += play.calculateCredits(performance);
-
-            if (isHTML) {
-                stringBuilder.append(String.format("<tr><td>%s</td><td>%s</td><td>%s</td></tr>",
-                                                    play.name, performance.audience, formatter.format(price)));
-            } else {
-                stringBuilder.append(String.format("  %s: %s (%s seats)\n", play.name, formatter.format(price), performance.audience));
-            }
-
-            totalAmount += price;
+            totalAmount += performance.play.calculatePrice(performance);
         }
+        return totalAmount;
+    }
 
-        if (isHTML) {
-            stringBuilder.append(String.format("<tr class=\"total\"><td colspan=\"2\">Total owed:</td><td>%s</td></tr>", formatter.format(totalAmount)));
-            stringBuilder.append(String.format("<p>You earned %s credits</p>", volumeCredits));
-        } else {
-            stringBuilder.append(String.format("Amount owed is %s\n", formatter.format(totalAmount)));
-            stringBuilder.append(String.format("You earned %s credits\n", volumeCredits));
+    private int calculateTotalVolumeCredits() {
+        int volumeCredits = 0;
+        for (Performance performance : performances) {
+            volumeCredits += performance.play.calculateCredits(performance);
         }
+        return volumeCredits;
+    }
+
+    private void appendPerformanceLine(StringBuilder builder, Performance performance, NumberFormat formatter) {
+        float price = performance.play.calculatePrice(performance);
+        builder.append(String.format("  %s: %s (%s seats)\n", performance.play.name, formatter.format(price), performance.audience));
+    }
+
+
+    private void appendHtmlPerformanceLine(StringBuilder builder, Performance performance, NumberFormat formatter) {
+        float price = performance.play.calculatePrice(performance);
+        builder.append(String.format("<tr><td>%s</td><td>%s</td><td>%s</td></tr>", performance.play.name, performance.audience, formatter.format(price)));
     }
 
     public String toText() {
         StringBuilder result = new StringBuilder(String.format("Statement for %s\n", customer));
         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
-        calculateRevenueAndCredits(result, formatter, false);
+        for (Performance performance : performances) {
+            appendPerformanceLine(result, performance, formatter);
+        }
+        result.append(String.format("Amount owed is %s\n", formatter.format(calculateTotalAmount())));
+        result.append(String.format("You earned %s credits\n", calculateTotalVolumeCredits()));
         return result.toString();
     }
 
@@ -58,15 +61,21 @@ public class Invoice {
         htmlContent.append(".warning { margin-top: 30px; color: red; font-weight: bold; font-style: italic; }");
         htmlContent.append("</style>");
         htmlContent.append("</head><body>");
-
+        
         htmlContent.append(String.format("<h1>Statement for %s</h1>", customer));
         htmlContent.append("<table><tr><th>Piece</th><th>Seats sold</th><th>Price</th></tr>");
+        
         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
-        calculateRevenueAndCredits(htmlContent, formatter, true);
+        for (Performance performance : performances) {
+            appendHtmlPerformanceLine(htmlContent, performance, formatter);
+        }
+        
+        htmlContent.append(String.format("<tr class=\"total\"><td colspan=\"2\">Total owed:</td><td>%s</td></tr>", formatter.format(calculateTotalAmount())));
+        htmlContent.append(String.format("<p>You earned %s credits</p>", calculateTotalVolumeCredits()));
         htmlContent.append("</table>");
         htmlContent.append("<p class=\"warning\">Payment is required under 30 days. We can siphon your SOUL if you don't do so.</p>");
         htmlContent.append("</body></html>");
+
         return htmlContent.toString();
     }
-    }
-
+}
