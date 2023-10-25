@@ -3,10 +3,10 @@ import java.util.List;
 import java.util.Locale;
 
 public class Invoice {
-    public String customer;
+    public Customer customer;
     public List<Performance> performances;
 
-    public Invoice(String customer, List<Performance> performances) {
+    public Invoice(Customer customer, List<Performance> performances) {
         this.customer = customer;
         this.performances = performances;
     }
@@ -39,7 +39,7 @@ public class Invoice {
     }
 
     public String toText() {
-        StringBuilder result = new StringBuilder(String.format("Statement for %s\n", customer));
+        StringBuilder result = new StringBuilder(String.format("Statement for %s\n", customer.name));
         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
         for (Performance performance : performances) {
             appendPerformanceLine(result, performance, formatter);
@@ -62,7 +62,7 @@ public class Invoice {
         htmlContent.append("</style>");
         htmlContent.append("</head><body>");
         
-        htmlContent.append(String.format("<h1>Statement for %s</h1>", customer));
+        htmlContent.append(String.format("<h1>Statement for %s</h1>", customer.name));
         htmlContent.append("<table><tr><th>Piece</th><th>Seats sold</th><th>Price</th></tr>");
         
         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);

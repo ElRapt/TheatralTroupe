@@ -1,7 +1,5 @@
 public abstract class Play {
 
-
-
   public String name;
 
   public Play(String name){
