@@ -8,7 +8,7 @@ import java.util.List;
 public class StatementPrinterTests {
 
   @Test
-  void exampleStatement(){
+  void testToTextInvoice(){
       Play hamlet = new Tragedy("Hamlet");
       Play asYouLikeIt = new Comedy("As You Like It");
       Play othello = new Tragedy("Othello");
@@ -24,7 +24,7 @@ public class StatementPrinterTests {
   }
 
   @Test
-  void exampleHtmlStatement(){
+  void testToHTMLInvoice(){
       Play hamlet = new Tragedy("Hamlet");
       Play asYouLikeIt = new Comedy("As You Like It");
       Play othello = new Tragedy("Othello");
