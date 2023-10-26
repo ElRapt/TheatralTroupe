@@ -8,7 +8,7 @@ public abstract class Play {
 
   public abstract float calculatePrice(Performance performance); 
 
-  public int calculateCredits(Performance performance)
+  public int calculateFidelityPoints(Performance performance)
   {
     return (Math.max(performance.audience - 30, 0));
   } 

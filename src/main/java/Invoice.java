@@ -19,10 +19,10 @@ public class Invoice {
         return totalAmount;
     }
 
-    private int calculateTotalVolumeCredits() {
+    private int calculateTotalVolumeFidelityPoints() {
         int volumeCredits = 0;
         for (Performance performance : performances) {
-            volumeCredits += performance.play.calculateCredits(performance);
+            volumeCredits += performance.play.calculateFidelityPoints(performance);
         }
         return volumeCredits;
     }
@@ -45,7 +45,7 @@ public class Invoice {
             appendPerformanceLine(result, performance, formatter);
         }
         result.append(String.format("Amount owed is %s\n", formatter.format(calculateTotalAmount())));
-        result.append(String.format("You earned %s credits\n", calculateTotalVolumeCredits()));
+        result.append(String.format("You earned %s fidelity points\n", calculateTotalVolumeFidelityPoints()));
         return result.toString();
     }
 
@@ -71,7 +71,7 @@ public class Invoice {
         }
         
         htmlContent.append(String.format("<tr class=\"total\"><td colspan=\"2\">Total owed:</td><td>%s</td></tr>", formatter.format(calculateTotalAmount())));
-        htmlContent.append(String.format("<p>You earned %s credits</p>", calculateTotalVolumeCredits()));
+        htmlContent.append(String.format("<p>You earned %s fidelity points</p>", calculateTotalVolumeFidelityPoints()));
         htmlContent.append("</table>");
         htmlContent.append("<p class=\"warning\">Payment is required under 30 days. We can siphon your SOUL if you don't do so.</p>");
         htmlContent.append("</body></html>");

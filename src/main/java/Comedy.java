@@ -14,7 +14,7 @@ public class Comedy extends Play{
     } 
 
    @Override
-   public int calculateCredits(Performance performance)
+   public int calculateFidelityPoints(Performance performance)
    {
     int volumeCredits = (Math.max(performance.audience - 30, 0));
     return volumeCredits  + (int)(Math.floor(performance.audience / 5));
