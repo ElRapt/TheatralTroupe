@@ -10,6 +10,8 @@ public class StatementPrinterTests {
 
     Customer BigCo = new Customer("BigCo", UUID.randomUUID());
 
+    // Acceptation tests
+
     @Test
     void testToTextInvoice(){
         Play hamlet = new Tragedy("Hamlet");
@@ -42,6 +44,8 @@ public class StatementPrinterTests {
         verify(result);
     }
 
+    // Unit tests
+
     @Test
     void testExceptionNegativeAudience(){
         Play hamlet = new Tragedy("Hamlet");
@@ -50,7 +54,19 @@ public class StatementPrinterTests {
         });
     }
     
+    @Test
+    void testCalculatePriceTragedy(){
+        Play hamlet = new Tragedy("Hamlet");
+        Performance performance = new Performance(hamlet, 55);
+        assertEquals(650, hamlet.calculatePrice(performance));
+    }
 
+    @Test
+    void testCalculatePriceComedy(){
+        Play asYouLikeIt = new Comedy("As You Like It");
+        Performance performance = new Performance(asYouLikeIt, 35);
+        assertEquals(580, asYouLikeIt.calculatePrice(performance));
+    }
 
   }
 
