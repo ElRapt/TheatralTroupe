@@ -8,6 +8,7 @@ public class Customer {
     public Customer(String name, UUID clientId) {
         this.name = name;
         this.clientId = clientId;
+        this.fidelityPoints = 0;
     }
     public void addFidelityPoints(int points) {
         fidelityPoints += points;
@@ -15,6 +16,10 @@ public class Customer {
 
     public void applyDiscount() {
         fidelityPoints -= 150;
+    }
+
+    public int getFidelityPoints() {
+        return fidelityPoints;
     }
 }
 

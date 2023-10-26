@@ -16,6 +16,11 @@ public class Invoice {
         for (Performance performance : performances) {
             totalAmount += performance.play.calculatePrice(performance);
         }
+        if(customer.getFidelityPoints() >= 150)
+        {
+            customer.applyDiscount();
+            totalAmount -= 15;
+        }
         return totalAmount;
     }
 
@@ -46,6 +51,7 @@ public class Invoice {
         }
         result.append(String.format("Amount owed is %s\n", formatter.format(calculateTotalAmount())));
         result.append(String.format("You earned %s fidelity points\n", calculateTotalVolumeFidelityPoints()));
+        this.customer.addFidelityPoints(calculateTotalVolumeFidelityPoints());
         return result.toString();
     }
 
