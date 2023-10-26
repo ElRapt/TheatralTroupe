@@ -5,11 +5,17 @@ public class Customer {
     private UUID clientId;
     private int fidelityPoints;
 
-    public Customer(String name, UUID clientId) {
+    public Customer(String name, UUID clientId, int fidelityPoints) {
         this.name = name;
         this.clientId = clientId;
-        this.fidelityPoints = 0;
+        this.fidelityPoints = fidelityPoints;
     }
+
+    // Default fidelity points is 0
+    public Customer(String name, UUID clientId) {
+        this(name, clientId, 0);  
+    }
+
     public void addFidelityPoints(int points) {
         fidelityPoints += points;
     }

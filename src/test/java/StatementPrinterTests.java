@@ -9,11 +9,12 @@ import java.util.List;
 public class StatementPrinterTests {
 
     Customer BigCo = new Customer("BigCo", UUID.randomUUID());
+    Customer BigCoFidel = new Customer("BigCo", UUID.randomUUID(), 151);
 
     // Acceptation tests
 
     @Test
-    void testToTextInvoice(){
+    void testToTextInvoiceNoFidelity(){
         Play hamlet = new Tragedy("Hamlet");
         Play asYouLikeIt = new Comedy("As You Like It");
         Play othello = new Tragedy("Othello");
@@ -29,7 +30,7 @@ public class StatementPrinterTests {
     }
 
     @Test
-    void testToHTMLInvoice(){
+    void testToHTMLInvoiceNoFidelity(){
         Play hamlet = new Tragedy("Hamlet");
         Play asYouLikeIt = new Comedy("As You Like It");
         Play othello = new Tragedy("Othello");
@@ -43,6 +44,40 @@ public class StatementPrinterTests {
         String result = invoice.toHTML();
         verify(result);
     }
+
+
+    @Test
+    void testToTextInvoiceFidelity(){
+        Play hamlet = new Tragedy("Hamlet");
+        Play asYouLikeIt = new Comedy("As You Like It");
+        Play othello = new Tragedy("Othello");
+
+        Invoice invoice = new Invoice(BigCoFidel, List.of(
+                new Performance(hamlet, 55),
+                new Performance(asYouLikeIt, 35),
+                new Performance(othello, 40)
+        ));
+
+        String result = invoice.toText();
+        verify(result);
+    }
+
+    @Test
+    void testToHTMLInvoiceFidelity(){
+        Play hamlet = new Tragedy("Hamlet");
+        Play asYouLikeIt = new Comedy("As You Like It");
+        Play othello = new Tragedy("Othello");
+
+        Invoice invoice = new Invoice(BigCoFidel, List.of(
+                new Performance(hamlet, 55),
+                new Performance(asYouLikeIt, 35),
+                new Performance(othello, 40)
+        ));
+
+        String result = invoice.toHTML();
+        verify(result);
+    }
+
 
     // Unit tests
 
@@ -67,6 +102,7 @@ public class StatementPrinterTests {
         Performance performance = new Performance(asYouLikeIt, 35);
         assertEquals(580, asYouLikeIt.calculatePrice(performance));
     }
+
 
   }
 
