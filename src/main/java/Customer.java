@@ -6,6 +6,9 @@ public class Customer {
     private int fidelityPoints;
 
     public Customer(String name, UUID clientId, int fidelityPoints) {
+        if (name == null || clientId == null) {
+            throw new IllegalArgumentException("Name and clientId cannot be null");
+        }
         this.name = name;
         this.clientId = clientId;
         this.fidelityPoints = fidelityPoints;

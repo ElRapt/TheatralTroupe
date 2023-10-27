@@ -7,6 +7,9 @@ public class Invoice {
     public List<Performance> performances;
 
     public Invoice(Customer customer, List<Performance> performances) {
+        if (customer == null || performances == null || performances.isEmpty()) {
+            throw new IllegalArgumentException("Customer and performances cannot be null or empty");
+        }
         this.customer = customer;
         this.performances = performances;
     }
