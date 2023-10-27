@@ -2,7 +2,7 @@ import org.junit.jupiter.api.Test;
 import static org.approvaltests.Approvals.verify;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.UUID;
-
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -81,11 +81,46 @@ public class StatementPrinterTests {
 
     // Unit tests
 
-    @Test
-    void testExceptionNegativeAudience(){
+  @Test
+    void testExceptionNegativeAudiencePerformance() {
         Play hamlet = new Tragedy("Hamlet");
         assertThrows(IllegalArgumentException.class, () -> {
             new Performance(hamlet, -55);
+        });
+    }
+
+    @Test
+    void testExceptionNullNameCustomer() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Customer(null, UUID.randomUUID(), 0);
+        });
+    }
+
+    @Test
+    void testExceptionNullClientIdCustomer() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Customer("John", null, 0);
+        });
+    }
+
+    @Test
+    void testExceptionNullCustomerInvoice() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Invoice(null, Arrays.asList(new Performance(new Comedy("Funny Comedy"), 20)));
+        });
+    }
+
+    @Test
+    void testExceptionNullPerformancesInvoice() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Invoice(new Customer("John", UUID.randomUUID(), 0), null);
+        });
+    }
+
+    @Test
+    void testExceptionEmptyPerformancesInvoice() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Invoice(new Customer("John", UUID.randomUUID(), 0), Arrays.asList());
         });
     }
     
