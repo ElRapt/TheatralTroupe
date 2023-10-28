@@ -11,6 +11,8 @@ public class StatementPrinterTests {
     Customer BigCo = new Customer("BigCo", UUID.randomUUID());
     Customer BigCoFidel = new Customer("BigCo", UUID.randomUUID(), 151);
 
+    StatementPrinter printer = new StatementPrinter();
+
     // Acceptation tests
 
     @Test
@@ -25,7 +27,7 @@ public class StatementPrinterTests {
                 new Performance(othello, 40)
         ));
 
-        String result = invoice.toText();
+        String result = StatementPrinter.toText(invoice);
         verify(result);
     }
 
@@ -41,7 +43,7 @@ public class StatementPrinterTests {
                 new Performance(othello, 40)
         ));
 
-        String result = invoice.toHTML();
+        String result = StatementPrinter.toHTML(invoice);;
         verify(result);
     }
 
@@ -58,7 +60,7 @@ public class StatementPrinterTests {
                 new Performance(othello, 40)
         ));
 
-        String result = invoice.toText();
+        String result = StatementPrinter.toText(invoice);;;
         verify(result);
     }
 
@@ -74,7 +76,7 @@ public class StatementPrinterTests {
                 new Performance(othello, 40)
         ));
 
-        String result = invoice.toHTML();
+        String result = StatementPrinter.toHTML(invoice);;
         verify(result);
     }
 
