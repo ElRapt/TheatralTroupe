@@ -1,6 +1,4 @@
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class Invoice {
     public Customer customer;
@@ -17,7 +15,7 @@ public class Invoice {
     public float calculateTotalAmount() {
         float totalAmount = 0;
         for (Performance performance : performances) {
-            totalAmount += performance.play.calculatePrice(performance);
+            totalAmount += performance.calculatePrice();
         }
         if(customer.getFidelityPoints() >= 150)
         {
@@ -30,7 +28,7 @@ public class Invoice {
     public int calculateTotalVolumeFidelityPoints() {
         int volumeCredits = 0;
         for (Performance performance : performances) {
-            volumeCredits += performance.play.calculateFidelityPoints(performance);
+            volumeCredits += performance.calculateFidelityPoints();
         }
         return volumeCredits;
     }

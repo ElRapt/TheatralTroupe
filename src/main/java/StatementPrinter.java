@@ -9,14 +9,14 @@ public final class StatementPrinter {
     }
 
     public void appendPerformanceLine(StringBuilder builder, Performance performance, NumberFormat formatter) {
-        float price = performance.play.calculatePrice(performance);
-        builder.append(String.format("  %s: %s (%s seats)\n", performance.play.name, formatter.format(price), performance.audience));
+        float price = performance.calculatePrice();
+        builder.append(String.format("  %s: %s (%s seats)\n", performance.getPlayName(), formatter.format(price), performance.audience));
     }
 
 
     public void appendHtmlPerformanceLine(StringBuilder builder, Performance performance, NumberFormat formatter) {
-        float price = performance.play.calculatePrice(performance);
-        builder.append(String.format("<tr><td>%s</td><td>%s</td><td>%s</td></tr>", performance.play.name, performance.audience, formatter.format(price)));
+        float price = performance.calculatePrice();
+        builder.append(String.format("<tr><td>%s</td><td>%s</td><td>%s</td></tr>", performance.getPlayName(), performance.audience, formatter.format(price)));
     }
 
     public static String toHTML(Invoice invoice) {
@@ -38,8 +38,8 @@ public final class StatementPrinter {
         htmlContent.append("<table><tr><th>Piece</th><th>Seats sold</th><th>Price</th></tr>");
         
         for (Performance performance : invoice.performances) {
-            float price = performance.play.calculatePrice(performance);
-            htmlContent.append(String.format("<tr><td>%s</td><td>%s</td><td>%s</td></tr>", performance.play.name, performance.audience, formatter.format(price)));
+            float price = performance.calculatePrice();
+            htmlContent.append(String.format("<tr><td>%s</td><td>%s</td><td>%s</td></tr>", performance.getPlayName(), performance.audience, formatter.format(price)));
         }
         
         htmlContent.append(String.format("<tr class=\"total\"><td colspan=\"2\">Total owed:</td><td>%s</td></tr>", formatter.format(invoice.calculateTotalAmount())));
@@ -56,8 +56,8 @@ public final class StatementPrinter {
 
         result.append(String.format("Statement for %s\n", invoice.customer.name));
         for (Performance performance : invoice.performances) {
-            float price = performance.play.calculatePrice(performance);
-            result.append(String.format("  %s: %s (%s seats)\n", performance.play.name, formatter.format(price), performance.audience));
+            float price = performance.calculatePrice();
+            result.append(String.format("  %s: %s (%s seats)\n", performance.getPlayName(), formatter.format(price), performance.audience));
         }
 
         result.append(String.format("Amount owed is %s\n", formatter.format(invoice.calculateTotalAmount())));

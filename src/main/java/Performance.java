@@ -13,4 +13,16 @@ public class Performance {
         this.play = play;
         this.audience = audience;
     }
+
+    public float calculatePrice() {
+        return this.play.calculatePrice(this);
+    }
+
+    public int calculateFidelityPoints() {
+        return this.play.calculateFidelityPoints(this);
+    }
+
+    public String getPlayName() {
+        return this.play.name;
+    }
 }
