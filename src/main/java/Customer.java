@@ -24,6 +24,9 @@ public class Customer {
     }
 
     public void applyDiscount() {
+        if (this.fidelityPoints < 150) {
+            throw new IllegalStateException("Not enough points for discount");
+        }
         fidelityPoints -= 150;
     }
 

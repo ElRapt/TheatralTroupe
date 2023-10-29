@@ -140,6 +140,13 @@ public class StatementPrinterTests {
         assertEquals(580, asYouLikeIt.calculatePrice(performance));
     }
 
+    @Test
+    void testInvalidFidelityPoints(){
+        Customer customer = new Customer("John", UUID.randomUUID(), 0);
+        assertThrows(IllegalStateException.class, () -> {
+            customer.applyDiscount();
+        });
+    }
 
   }
 
