@@ -1,5 +1,6 @@
 public abstract class Play {
-
+  
+  private static final int AUDIENCE_THRESHOLD = 30;
   private String name;
 
   public Play(String name){
@@ -10,11 +11,11 @@ public abstract class Play {
 
   public int calculateFidelityPoints(Performance performance)
   {
-    return (Math.max(performance.getAudience() - 30, 0));
+    return (Math.max(performance.getAudience() - AUDIENCE_THRESHOLD, 0));
   } 
 
   public String getName() {
     return name;
   }
-  
+
 }

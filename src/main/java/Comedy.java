@@ -1,23 +1,25 @@
-public class Comedy extends Play{
-    public Comedy(String name){
-        super(name);
-      }
+public class Comedy extends Play {
+    private static final int BASE_PRICE = 300;
+    private static final int AUDIENCE_THRESHOLD = 20;
+    private static final int EXTRA_COST_PER_AUDIENCE = 5;
 
-    public float calculatePrice(Performance performance)
-    {
-        int price = 300;
-        if (performance.getAudience() > 20) {
-            price += 100 + 5 * (performance.getAudience() - 20);
+    public Comedy(String name) {
+        super(name);
+    }
+
+    @Override
+    public float calculatePrice(Performance performance) {
+        int price = BASE_PRICE;
+        if (performance.getAudience() > AUDIENCE_THRESHOLD) {
+            price += 100 + EXTRA_COST_PER_AUDIENCE * (performance.getAudience() - AUDIENCE_THRESHOLD);
         }
         price += 3 * performance.getAudience();
         return price;
-    } 
+    }
 
-   @Override
-   public int calculateFidelityPoints(Performance performance)
-   {
-    int volumeCredits = (Math.max(performance.getAudience() - 30, 0));
-    return volumeCredits  + (int)(Math.floor(performance.getAudience() / 5));
+    @Override
+    public int calculateFidelityPoints(Performance performance) {
+        int volumeCredits = super.calculateFidelityPoints(performance);
+        return volumeCredits + (int) Math.floor(performance.getAudience() / 5);
+    }
 }
-   }  
-
