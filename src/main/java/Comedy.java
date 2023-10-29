@@ -6,18 +6,18 @@ public class Comedy extends Play{
     public float calculatePrice(Performance performance)
     {
         int price = 300;
-        if (performance.audience > 20) {
-            price += 100 + 5 * (performance.audience - 20);
+        if (performance.getAudience() > 20) {
+            price += 100 + 5 * (performance.getAudience() - 20);
         }
-        price += 3 * performance.audience;
+        price += 3 * performance.getAudience();
         return price;
     } 
 
    @Override
    public int calculateFidelityPoints(Performance performance)
    {
-    int volumeCredits = (Math.max(performance.audience - 30, 0));
-    return volumeCredits  + (int)(Math.floor(performance.audience / 5));
+    int volumeCredits = (Math.max(performance.getAudience() - 30, 0));
+    return volumeCredits  + (int)(Math.floor(performance.getAudience() / 5));
 }
    }  
 

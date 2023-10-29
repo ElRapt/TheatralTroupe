@@ -1,8 +1,8 @@
 import java.util.List;
 
 public class Invoice {
-    public Customer customer;
-    public List<Performance> performances;
+    private Customer customer;
+    private List<Performance> performances;
 
     public Invoice(Customer customer, List<Performance> performances) {
         if (customer == null || performances == null || performances.isEmpty()) {
@@ -31,6 +31,14 @@ public class Invoice {
             volumeCredits += performance.calculateFidelityPoints();
         }
         return volumeCredits;
+    }
+
+    public String getCustomerName() {
+        return customer.name;
+    }
+
+    public List<Performance> getPerformances() {
+        return performances;
     }
 
 }

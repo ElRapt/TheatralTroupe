@@ -6,8 +6,8 @@ public class Tragedy extends Play{
     public float calculatePrice(Performance performance)
     {
         int price = 400;
-        if (performance.audience > 30) {
-            price += 10 * (performance.audience - 30);
+        if (performance.getAudience() > 30) {
+            price += 10 * (performance.getAudience() - 30);
         }
         return price;
     } 

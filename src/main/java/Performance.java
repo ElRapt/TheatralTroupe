@@ -1,7 +1,7 @@
 public class Performance {
 
-    public Play play;
-    public int audience;
+    private Play play;
+    private int audience;
 
     public Performance(Play play, int audience) {
         if (play == null) {
@@ -23,6 +23,12 @@ public class Performance {
     }
 
     public String getPlayName() {
-        return this.play.name;
+        return this.play.getName();
     }
+
+    public int getAudience() {
+        return audience;
+    }
+
+
 }

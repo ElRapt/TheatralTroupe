@@ -1,6 +1,6 @@
 public abstract class Play {
 
-  public String name;
+  private String name;
 
   public Play(String name){
     this.name = name;
@@ -10,6 +10,11 @@ public abstract class Play {
 
   public int calculateFidelityPoints(Performance performance)
   {
-    return (Math.max(performance.audience - 30, 0));
+    return (Math.max(performance.getAudience() - 30, 0));
   } 
+
+  public String getName() {
+    return name;
+  }
+  
 }
