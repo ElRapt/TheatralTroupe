@@ -11,7 +11,7 @@ The core objective of this project is to refactor and extend the original codeba
 
 ## Installation and Environment Setup
 
-Before starting, make sure to have JDK 17 installed on your machine. This project is not compatible with Java 19. The project uses Git for version control and Gradle for build automation, following the precedent set in TP1.
+Before starting, make sure to have JDK 17 installed on your machine. This project is not compatible with Java 19. The project uses Git for version control and Gradle for build automation.
 
 ## Refactoring and Code Cleanup
 
