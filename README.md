@@ -17,7 +17,7 @@ Before starting, make sure to have JDK 17 installed on your machine. This projec
 
 We start off by refactoring the existing code, especially the `StatementPrinter` class. The refactoring efforts aim to improve code readability and performance. Some key areas of focus include :
 
-- Utilizing `StringBuffer` for string concatenation.
+- Utilizing `StringBuilder` for string concatenation.
 - Introducing more meaningful variable names.
 - Modifying financial calculations to use floating-point numbers instead of integers.
 
