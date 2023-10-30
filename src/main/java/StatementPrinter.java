@@ -39,10 +39,9 @@ public final class StatementPrinter {
     }
 
     public static String toHTML(Invoice invoice) {
+        invoice.calculateAndStoreTotals();
         StringBuilder htmlContent = new StringBuilder();
-
         appendHtmlHeader(htmlContent);
-
         htmlContent.append(String.format("  <h1>Statement for %s</h1>\n", invoice.getCustomerName()));
         htmlContent.append("  <table>\n    <tr><th>Piece</th><th>Seats sold</th><th>Price</th></tr>\n");
 
@@ -50,16 +49,17 @@ public final class StatementPrinter {
             appendHtmlPerformanceLine(htmlContent, performance, formatter);
         }
 
-        htmlContent.append(String.format("    <tr class=\"total\"><td colspan=\"2\">Total owed:</td><td>%s</td></tr>\n", formatter.format(invoice.calculateTotalAmount())));
-        htmlContent.append(String.format("  <p>You earned %s fidelity points</p>\n", invoice.calculateTotalVolumeFidelityPoints()));
+        htmlContent.append(String.format("    <tr class=\"total\"><td colspan=\"2\">Total owed:</td><td>%s</td></tr>\n", formatter.format(invoice.getAmountToPay())));
+        htmlContent.append(String.format("  <p>You earned %s fidelity points</p>\n", invoice.getEarnedFidelityPoints()));
         htmlContent.append("  </table>\n");
         htmlContent.append("  <p class=\"warning\">Payment is required under 30 days. We can siphon your SOUL if you don't do so.</p>\n");
-
         appendHtmlFooter(htmlContent);
+
         return htmlContent.toString();
     }
 
     public static String toText(Invoice invoice) {
+        invoice.calculateAndStoreTotals();
         StringBuilder result = new StringBuilder();
         result.append(String.format("Statement for %s\n", invoice.getCustomerName()));
 
@@ -67,8 +67,8 @@ public final class StatementPrinter {
             appendPerformanceLine(result, performance, formatter);
         }
 
-        result.append(String.format("Amount owed is %s\n", formatter.format(invoice.calculateTotalAmount())));
-        result.append(String.format("You earned %s fidelity points\n", invoice.calculateTotalVolumeFidelityPoints()));
+        result.append(String.format("Amount owed is %s\n", formatter.format(invoice.getAmountToPay())));
+        result.append(String.format("You earned %s fidelity points\n", invoice.getEarnedFidelityPoints()));
 
         return result.toString();
     }

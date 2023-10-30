@@ -10,6 +10,7 @@ public class StatementPrinterTests {
 
     Customer BigCo = new Customer("BigCo", UUID.randomUUID());
     Customer BigCoFidel = new Customer("BigCo", UUID.randomUUID(), 151);
+    Customer BigCoWillBeFidel = new Customer("BigCo", UUID.randomUUID(), 131);
 
     StatementPrinter printer = new StatementPrinter();
 
@@ -43,10 +44,41 @@ public class StatementPrinterTests {
                 new Performance(othello, 40)
         ));
 
-        String result = StatementPrinter.toHTML(invoice);;
+        String result = StatementPrinter.toHTML(invoice);
         verify(result);
     }
 
+    @Test
+    void testToTextInvoiceWillBeFidelity(){
+        Play hamlet = new Tragedy("Hamlet");
+        Play asYouLikeIt = new Comedy("As You Like It");
+        Play othello = new Tragedy("Othello");
+
+        Invoice invoice = new Invoice(BigCoWillBeFidel, List.of(
+                new Performance(hamlet, 55),
+                new Performance(asYouLikeIt, 35),
+                new Performance(othello, 40)
+        ));
+
+        String result = StatementPrinter.toText(invoice);
+        verify(result);
+    }
+
+    @Test
+    void testToHTMLInvoiceWillBeFidelity(){
+        Play hamlet = new Tragedy("Hamlet");
+        Play asYouLikeIt = new Comedy("As You Like It");
+        Play othello = new Tragedy("Othello");
+
+        Invoice invoice = new Invoice(BigCoWillBeFidel, List.of(
+                new Performance(hamlet, 55),
+                new Performance(asYouLikeIt, 35),
+                new Performance(othello, 40)
+        ));
+
+        String result = StatementPrinter.toHTML(invoice);
+        verify(result);
+    }
 
     @Test
     void testToTextInvoiceFidelity(){
@@ -60,7 +92,7 @@ public class StatementPrinterTests {
                 new Performance(othello, 40)
         ));
 
-        String result = StatementPrinter.toText(invoice);;;
+        String result = StatementPrinter.toText(invoice);
         verify(result);
     }
 
@@ -76,7 +108,7 @@ public class StatementPrinterTests {
                 new Performance(othello, 40)
         ));
 
-        String result = StatementPrinter.toHTML(invoice);;
+        String result = StatementPrinter.toHTML(invoice);
         verify(result);
     }
 
@@ -148,5 +180,35 @@ public class StatementPrinterTests {
         });
     }
 
+    @Test
+    void testCalculateFidelityPointsTragedy(){
+        Play hamlet = new Tragedy("Hamlet");
+        Performance performance = new Performance(hamlet, 55);
+        assertEquals(25, hamlet.calculateFidelityPoints(performance));
+    }
+
+    @Test
+    void testCalculateFidelityPointsComedy(){
+        Play asYouLikeIt = new Comedy("As You Like It");
+        Performance performance = new Performance(asYouLikeIt, 35);
+        assertEquals(12, asYouLikeIt.calculateFidelityPoints(performance));
+    }
+
+    @Test
+    void testCalculateAndStoreTotals(){
+        Play hamlet = new Tragedy("Hamlet");
+        Play asYouLikeIt = new Comedy("As You Like It");
+        Play othello = new Tragedy("Othello");
+
+        Invoice invoice = new Invoice(BigCo, List.of(
+                new Performance(hamlet, 55),
+                new Performance(asYouLikeIt, 35),
+                new Performance(othello, 40)
+        ));
+
+        invoice.calculateAndStoreTotals();
+        assertEquals(650 + 580 + 500, invoice.getAmountToPay());
+        assertEquals(25 + 12 + 10, invoice.getEarnedFidelityPoints());
+    }
   }
 
