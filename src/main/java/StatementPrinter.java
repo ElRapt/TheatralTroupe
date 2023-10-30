@@ -50,8 +50,8 @@ public final class StatementPrinter {
         }
 
         htmlContent.append(String.format("    <tr class=\"total\"><td colspan=\"2\">Total owed:</td><td>%s</td></tr>\n", formatter.format(invoice.getAmountToPay())));
-        htmlContent.append(String.format("  <p>You earned %s fidelity points</p>\n", invoice.getEarnedFidelityPoints()));
         htmlContent.append("  </table>\n");
+        htmlContent.append(String.format("  <p>You earned %s fidelity points.</p>\n", invoice.getEarnedFidelityPoints()));
         htmlContent.append("  <p class=\"warning\">Payment is required under 30 days. We can siphon your SOUL if you don't do so.</p>\n");
         appendHtmlFooter(htmlContent);
 
